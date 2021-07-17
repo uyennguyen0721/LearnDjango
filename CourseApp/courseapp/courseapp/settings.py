@@ -80,10 +80,16 @@ WSGI_APPLICATION = 'courseapp.wsgi.application'
 #Kết nối với CSDL
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'coursesdb',    #tên database
+        'USER': 'root',
+        'PASSWORD': '123456789',
+        'HOST': ''  #để như vầy mặc định là localhost, nếu đưa lên server deploy production thì truyền host vô
     }
 }
+
+#chỉ định chứng thực
+AUTH_USER_MODEL = 'courses.User'
 
 
 # Password validation
