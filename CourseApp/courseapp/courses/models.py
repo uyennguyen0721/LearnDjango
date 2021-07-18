@@ -25,6 +25,9 @@ class ItemBase(models.Model):
     updated_date = models.DateTimeField(auto_now=True)  # auto_now=True: nếu mỗi lần có cập nhật liên quan đến Course thì biến này sẽ được cập nhật lại, lấy thời điểm hiện tại mà mình cập nhật
     active = models.BooleanField(default=True)  # nếu khóa học đó còn thì True, không còn thì False, giống như lms của trường, các HK đã học xong ko phải đã xóa hẳn đi mà nó vẫn được lưu trữ, khi xóa thì chỉ cần tắt (False) đi, để dữ liệu quá khứ và tương lai của mình vẫn còn ổn
 
+    def __str__(self):
+        return self.subject
+
 
 class Course(ItemBase):
     class Meta:
@@ -35,9 +38,16 @@ class Course(ItemBase):
         #ordering này có thể ghi đè lại trong quá trình làm
 
     description = models.TextField(null=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)    #Many to one
     #on_delete=models.CASCADE: khi xóa Category, toàn bộ Course của Category sẽ xóa theo (mối quan hệ Composition
     #on_delete=models.SET_NULL: khi xóa Category, thì trường category này sẽ lấy giá trị null, do đó ta cần để null=True
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Lesson(ItemBase):
@@ -45,6 +55,7 @@ class Lesson(ItemBase):
         unique_together = ('subject', 'course') #Trong cùng một khóa học (Course) không được trùng tên (subject) bài học (Lesson)
 
     content = models.TextField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, related_name="lessons", on_delete=models.CASCADE)
     #on_delete=models.SET_DEFAULT: Khi Course của Lesson bị xóa đi, các bạn muốn cho Lesson này thuộc vào cái Course mặc định
     #on_delete=models.PROTECT: Cấm --> Khi những Course có những Lesson thì không được xóa những Course đó
+    tags = models.ManyToManyField(Tag, related_name="lessons", blank=True, null=True)   #blank=True: được phép rỗng     #Many to many
