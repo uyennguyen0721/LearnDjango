@@ -13,11 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import ckeditor_uploader
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.conf import settings
+
 
 #mapping vào các url được thể hiện ở views, đây là nơi đầu tiên mà nó vô tìm các url mà các request ở dưới client gửi lên
 urlpatterns = [
     path('', include('courses.urls')),
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ]

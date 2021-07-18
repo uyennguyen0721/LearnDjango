@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from ckeditor.fields import RichTextField
 
 # Create your models here. (Nơi tạo ra các lớp để ánh xạ đến tạo cơ sở dữ liệu theo mô hình code first)
 
@@ -54,7 +55,7 @@ class Lesson(ItemBase):
     class Meta:
         unique_together = ('subject', 'course') #Trong cùng một khóa học (Course) không được trùng tên (subject) bài học (Lesson)
 
-    content = models.TextField()
+    content = RichTextField()
     course = models.ForeignKey(Course, related_name="lessons", on_delete=models.CASCADE)
     #on_delete=models.SET_DEFAULT: Khi Course của Lesson bị xóa đi, các bạn muốn cho Lesson này thuộc vào cái Course mặc định
     #on_delete=models.PROTECT: Cấm --> Khi những Course có những Lesson thì không được xóa những Course đó
