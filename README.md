@@ -16,6 +16,7 @@ sau đó thực hiện lần lượt các lệnh sau:
 - Có thể sử dụng lệnh sqlmigrate để xem SQL sẽ được tạo ra từ một migration để thực thi trong CSDL:
 	python manage.py sqlmigrate <app_name> <mã ở đầu tên file migration> 
 - Cài thư viên Pillow:	python install pillow
+- Tạo ra một superuser đầu tiên: python manager.py createsuperuser
 - Truy xuất dữ liệu (thường được sử dụng trong debug) trong terminal trước hết phải dùng lệnh: python manager.py shell
 sau đó dùng các câu lệnh truy xuất để truy xuất dữ liệu
 
