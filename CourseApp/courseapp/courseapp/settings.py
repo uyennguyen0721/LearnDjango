@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+#chỉ các url, từ đây ánh xạ đến các url để nó mapping khi có request của người dùng
 ROOT_URLCONF = 'courseapp.urls'
 
 TEMPLATES = [

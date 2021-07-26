@@ -1,10 +1,11 @@
 from django.contrib import admin
+from django.contrib.auth.models import Permission
 from django import forms
 from django.db.models import Count
 from django.template.response import TemplateResponse
 from django.urls import path
 from django.utils.html import mark_safe
-from .models import Category, Course, Lesson, Tag
+from .models import Category, Course, Lesson, Tag, User
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
@@ -64,13 +65,15 @@ class CourseAppAdminSite(admin.AdminSite):
         })
 
 
-admin_site = CourseAppAdminSite('mycourse')
+#admin_site = CourseAppAdminSite('mycourse')
 
 
 # Register your models here. (Nơi cấu hình những thông tin của trang admin)
-#admin.site.register(Category)
-#admin.site.register(Course, CourseAdmin)
-#admin.site.register(Lesson, LessonAdmin)
-admin_site.register(Category)
-admin_site.register(Course, CourseAdmin)
-admin_site.register(Lesson, LessonAdmin)
+admin.site.register(Category)
+admin.site.register(Course, CourseAdmin)
+admin.site.register(Lesson, LessonAdmin)
+admin.site.register(User)
+admin.site.register(Permission)
+#admin_site.register(Category)
+#admin_site.register(Course, CourseAdmin)
+#admin_site.register(Lesson, LessonAdmin)
