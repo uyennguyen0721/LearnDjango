@@ -41,8 +41,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',   #app hỗ trợ các tài nguyên tĩnh: css, js, ...
     'courses.apps.CoursesConfig',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'rest_framework'
 ]
+
+#cấu hình liên quan đến REST
+REST_FRAMEWORK = {
+    #Phân trang, hiển thị tối đa 2 khóa học
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2  #số item trả ra trên một trang
+}
 
 #giữa các tầng có thể xây dựng các middleware để chặn các request để kiểm tra, xử lý một cái gì đó trước khi gửi vào bên trong server
 MIDDLEWARE = [
