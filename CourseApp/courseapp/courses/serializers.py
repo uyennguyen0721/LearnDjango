@@ -6,7 +6,26 @@
 #ở đây là demo serializers liên kết với models
 
 from rest_framework.serializers import ModelSerializer
-from .models import Course, Lesson, Tag
+from .models import Course, Lesson, Tag, User
+
+
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "first_name", "last_name", "email", "username", "password", "avatar"]
+        extra_kwargs = {
+            'password': {'write_only': 'true'}  # password chỉ dùng để ghi và để đọc, không dùng để view
+        }
+
+    # khi create sẽ gọi phương thức này chứ không gọi phương thức create của API nữa
+    def create(self, validated_data):
+        user = User(**validated_data) #dùng **validated_data không cần phải ghi 2 lệnh dưới, nó sẽ tự động lấy dữ liệu lên và chỉ set lạ password, mọi thông tin còn lại giữ nguyên
+        # user.first_name = validated_data('first_name')
+        # user.last_name = validated_data('last_name')
+        user.set_password(validated_data('password'))
+        user.save()
+        return user
+
 
 
 class CourseSerializer(ModelSerializer):    #1

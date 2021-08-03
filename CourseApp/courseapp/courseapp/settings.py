@@ -42,14 +42,19 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'ckeditor',
     'ckeditor_uploader',
-    'rest_framework'
+    'rest_framework',
+    'oauth2_provider',
+    'drf_yasg',
+    'debug_toolbar',
 ]
 
 #cấu hình liên quan đến REST
 REST_FRAMEWORK = {
     #Phân trang, hiển thị tối đa 2 khóa học
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 2  #số item trả ra trên một trang
+    'PAGE_SIZE': 2,  #số item trả ra trên một trang
+    #Django OAuth Toolkits
+    'DEFAULT_AUTHENTICATION_CLASSES': ('oauth2_provider.contrib.rest_framework.OAuth2Authentication', )
 }
 
 #giữa các tầng có thể xây dựng các middleware để chặn các request để kiểm tra, xử lý một cái gì đó trước khi gửi vào bên trong server
@@ -61,6 +66,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'  #chặn truy vấn trước khi gửi lên server để đo các câu truy vấn, công cụ này chỉ được dùng trong giai đoạn phát triển, khi triển khai lên production thì phải tắt đi nếu không sẽ ảnh hưởng đến truy vấn của mình
+]
+
+INTERNAL_IPS = [
+    '127.0.0.1'
 ]
 
 #chỉ các url, từ đây ánh xạ đến các url để nó mapping khi có request của người dùng

@@ -10,6 +10,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register('courses', views.CourseViewSet)
 router.register('lessons', views.LessonViewSet)
+router.register('user', views.UserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)), #4 ---> Tạo ra 2 endpoint tương ứng với 5 API là:
